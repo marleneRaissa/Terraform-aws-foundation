@@ -4,7 +4,7 @@
 
 Conception des modules Terraform from scratch pour une bonne compréhension des fondamentaux de l'infrastructure AWS
 
-## Architecture (High-Level)
+## 🏗️ Architecture (High-Level)
 
 ```text
 EC2 Instance
@@ -42,9 +42,9 @@ Un module EC2 réutilisable offrant :
     ✅ Conception de modules Terraform
     ✅ Fonctionnement interne du groupe de sécurité AWS
     ✅ Ressources dynamiques avec for_each
-    ✅Modèles de variables map(object)
+    ✅ Modèles de variables map(object)
     ✅ Sources de données (aws_ami)
     ✅ Fusion de balises avec merge()
-    ✅Contrats d'entrée/sortie propres
+    ✅ Contrats d'entrée/sortie propres
     ✅ Réutilisabilité de l'infrastructure
 
