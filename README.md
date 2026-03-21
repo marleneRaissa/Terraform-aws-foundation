@@ -4,6 +4,7 @@
 
 Conception des modules Terraform from scratch pour une bonne compréhension des fondamentaux de l'infrastructure AWS
 
+---
 
 ## Architecture (High-Level)
 
@@ -13,6 +14,8 @@ EC2 Instance
    ├── Attached Security Groups
    │
    └── Subnet (provided externally)
+
+---
 
 ## 🧱 What Was Built
 
@@ -36,6 +39,8 @@ Un module EC2 réutilisable offrant :
 - Association d’adresse IP publique optionnelle
 - Étiquetage flexible avec étiquette de nom obligatoire
 - Sorties claires pour l’intégration
+
+---
 
 ## 🧠 Compétences démontrées
 
