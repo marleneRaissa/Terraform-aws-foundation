@@ -51,6 +51,7 @@ Un module EC2 réutilisable offrant :
 
 ## Exemple fonctionnement module security_group
 
+```text
 variable "inbound_rules_ipv4" {
   default = {
     "http" = {
@@ -76,6 +77,7 @@ variable "inbound_rules_ipv4" {
     }
   }
 }
+```
 
 ```text
 Variable inbound_rules_ipv4 (map)
