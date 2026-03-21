@@ -4,8 +4,6 @@
 
 Conception des modules Terraform from scratch pour une bonne compréhension des fondamentaux de l'infrastructure AWS
 
----
-
 ## Architecture (High-Level)
 
 ```text
@@ -14,14 +12,12 @@ EC2 Instance
    ├── Attached Security Groups
    │
    └── Subnet (provided externally)
-
----
+```
 
 ## 🧱 What Was Built
 
 
 ### 1️⃣ Module de groupe de sécurité
-
 Module de groupe de sécurité réutilisable prenant en charge :
 - Règles entrantes et sortantes
 - Trafic IPv4 et IPv6
@@ -31,7 +27,6 @@ Module de groupe de sécurité réutilisable prenant en charge :
 
 
 ### 2️⃣ Module EC2
-
 Un module EC2 réutilisable offrant :
 - Une AMI Amazon Linux 2023 sélectionnée dynamiquement
 - Type d’instance et sous-réseau configurables
@@ -52,3 +47,4 @@ Un module EC2 réutilisable offrant :
     ✅ Fusion de balises avec merge()
     ✅Contrats d'entrée/sortie propres
     ✅ Réutilisabilité de l'infrastructure
+
