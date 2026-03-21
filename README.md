@@ -48,3 +48,83 @@ Un module EC2 réutilisable offrant :
     ✅ Contrats d'entrée/sortie propres
     ✅ Réutilisabilité de l'infrastructure
 
+
+## Exemple fonctionnement module security_group
+
+variable "inbound_rules_ipv4" {
+  default = {
+    "http" = {
+      cidr_ipv4   = "0.0.0.0/0"
+      protocol    = "tcp"
+      from_port   = 80
+      to_port     = 80
+      description = "HTTP from anywhere"
+    }
+    "https" = {
+      cidr_ipv4   = "0.0.0.0/0"
+      protocol    = "tcp"
+      from_port   = 443
+      to_port     = 443
+      description = "HTTPS from anywhere"
+    }
+    "ssh_admin" = {
+      cidr_ipv4   = "203.0.113.0/24"
+      protocol    = "tcp"
+      from_port   = 22
+      to_port     = 22
+      description = "SSH from office"
+    }
+  }
+}
+
+```text
+Variable inbound_rules_ipv4 (map)
+│
+├── "http" ────┐
+├── "https" ───┤
+└── "ssh_admin"┤
+               │
+               ▼
+    for_each parcourt chaque clé
+               │
+               ▼
+    Crée une ressource par règle
+               │
+               ▼
+    Chaque règle est attachée au Security Group
+               │
+               ▼
+    Résultat : 3 règles dans AWS
+```
+
+ce que Terraform va créer : 
+
+# Ressource 1
+resource "aws_vpc_security_group_ingress_rule" "ingress_rule_ip4"["http"] {
+  security_group_id = sg-12345678
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+  description       = "HTTP from anywhere"
+}
+
+# Ressource 2
+resource "aws_vpc_security_group_ingress_rule" "ingress_rule_ip4"["https"] {
+  security_group_id = sg-12345678
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 443
+  ip_protocol       = "tcp"
+  to_port           = 443
+  description       = "HTTPS from anywhere"
+}
+
+# Ressource 3
+resource "aws_vpc_security_group_ingress_rule" "ingress_rule_ip4"["ssh_admin"] {
+  security_group_id = sg-12345678
+  cidr_ipv4         = "203.0.113.0/24"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+  description       = "SSH from office"
+}
