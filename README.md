@@ -99,7 +99,8 @@ Variable inbound_rules_ipv4 (map)
 
 ce que Terraform va créer : 
 
-# Ressource 1
+###### Ressource 1
+```text
 resource "aws_vpc_security_group_ingress_rule" "ingress_rule_ip4"["http"] {
   security_group_id = sg-12345678
   cidr_ipv4         = "0.0.0.0/0"
@@ -108,8 +109,9 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_rule_ip4"["http"] {
   to_port           = 80
   description       = "HTTP from anywhere"
 }
-
-# Ressource 2
+```
+###### Ressource 2
+```text
 resource "aws_vpc_security_group_ingress_rule" "ingress_rule_ip4"["https"] {
   security_group_id = sg-12345678
   cidr_ipv4         = "0.0.0.0/0"
@@ -118,8 +120,9 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_rule_ip4"["https"] {
   to_port           = 443
   description       = "HTTPS from anywhere"
 }
-
-# Ressource 3
+```
+###### Ressource 3
+```text
 resource "aws_vpc_security_group_ingress_rule" "ingress_rule_ip4"["ssh_admin"] {
   security_group_id = sg-12345678
   cidr_ipv4         = "203.0.113.0/24"
@@ -128,3 +131,4 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_rule_ip4"["ssh_admin"] {
   to_port           = 22
   description       = "SSH from office"
 }
+```
