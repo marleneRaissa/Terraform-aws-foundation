@@ -1,22 +1,23 @@
 # Terraform Core Modules (Security Group & EC2)
 
-#######################################  🎯 Objectif  ##############################################
+## 🎯 Objectif
 
 Conception des modules Terraform from scratch pour une bonne compréhension des fondamentaux de l'infrastructure AWS
 
 
-#######################################  Architecture  ##############################################
+## Architecture (High-Level)
 
+```text
 EC2 Instance
    │
    ├── Attached Security Groups
    │
    └── Subnet (provided externally)
 
-#######################################  🧱 What Was Built  ##########################################
+## 🧱 What Was Built
 
 
-1️⃣ Module de groupe de sécurité
+### 1️⃣ Module de groupe de sécurité
 
 Module de groupe de sécurité réutilisable prenant en charge :
 - Règles entrantes et sortantes
@@ -26,7 +27,7 @@ Module de groupe de sécurité réutilisable prenant en charge :
 - Configuration entièrement pilotée par variables
 
 
-2️⃣ Module EC2
+### 2️⃣ Module EC2
 
 Un module EC2 réutilisable offrant :
 - Une AMI Amazon Linux 2023 sélectionnée dynamiquement
@@ -36,7 +37,7 @@ Un module EC2 réutilisable offrant :
 - Étiquetage flexible avec étiquette de nom obligatoire
 - Sorties claires pour l’intégration
 
-####################################  🧠 Compétences démontrées  ###################################
+## 🧠 Compétences démontrées
 
     ✅ Conception de modules Terraform
     ✅ Fonctionnement interne du groupe de sécurité AWS
