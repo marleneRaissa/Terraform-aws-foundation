@@ -1,0 +1,13 @@
+output "vpc_id" {
+    value = aws_vpc.main_vpc_id
+}
+
+output "public_subnet_ids" {
+  #using splat expression (recommended)
+  value = aws_subnet.public_subnets[*].id
+}
+
+output "private_subnet_ids" {
+  #using splat expression (recommended)
+  value = aws_subnet.private_subnets[*].id
+}
