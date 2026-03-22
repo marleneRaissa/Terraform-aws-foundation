@@ -40,6 +40,7 @@ variable "inbound_rules_ipv6" {
 
 }
 
+# si on souhaite utiliser les règles entrantes d'un autre groupe de sécurité
 variable "inbound_rules_sg" {
 
   type = map(object({
@@ -81,6 +82,7 @@ variable "outbound_rules_ipv6" {
 
 }
 
+# si on souhaite utiliser les règles sortantes d'un autre groupe de sécurité
 variable "outbound_rules_sg" {
 
   type = map(object({

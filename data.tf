@@ -15,7 +15,7 @@ data "aws_security_group" "default_sg" {
   }
 }
 
-# Liste de tous les IDs de subnets 
+# récupérer dynamiquement des informations la liste de tous les IDs de subnets crée automatiquement 
 data "aws_subnets" "list_subnet" {
   filter {
     name   = "vpc-id" // keep the tag vpc-id

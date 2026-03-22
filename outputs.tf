@@ -13,6 +13,6 @@ output "list_subnet" {
   value = data.aws_subnets.list_subnet.ids
 }
 
-output "list_security_group" {  # on recupère les variables de la ressource data
+output "list_security_group" {  # on recupère les variables de la ressource data (l'id du security_group par defaut)
   value = data.aws_security_group.default_sg.arn
 }
