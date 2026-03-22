@@ -21,6 +21,7 @@ locals {
 
   Terraform forbids guessing CIDRs. Terraform gives you: cidrsubnet()
 
+
 Parameter 2 — newbits
   How many bits you add to the mask.
 
@@ -56,6 +57,19 @@ Parameter 2 — newbits
     3. Combien de sous-réseaux possibles ? 2^8 = 256 sous-réseaux différents (Chaque combinaison des 8 bits donne un subnet différent)
         de 172.31.0.0/24 à 172.31.255.0/24
 
+
+        Nombre de subnets = 2^(masque_subnet - masque_vpc)
+        Taille subnet = 2^(32 - masque_subnet) adresses
+        Incrément = 2^(32 - masque_subnet)
+        Adresse_subnet_n = Adresse_VPC + (n-1) × Incrément
+
+        Masque VPC : /16
+        Masque subnet : /24
+        Bits empruntés : 24 - 16 = 8 bits
+        Nombre de subnets : 2^8 = 256 subnets
+        Taille subnet : 2^(32-24) = 256 adresses
+        Incrément : 256, super donc on avance de 1 octet à chaque fois car 1 octet peut avoir 256 @ip (0 - 255)
+
         Sans sous-réseaux (juste le VPC) :
         172.31.0.0 à 172.31.255.255 (65,536 adresses)
 
@@ -65,7 +79,7 @@ Parameter 2 — newbits
         Subnet 3 : 172.31.2.0   à 172.31.2.255   (256 adresses)
         ...
         Subnet 256 : 172.31.255.0 à 172.31.255.255 (256 adresses)
-
+    
 
 Parameter 3 — netnum
   Which subnet index you want.
