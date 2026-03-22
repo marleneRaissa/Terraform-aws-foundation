@@ -7,14 +7,14 @@ module "security_group" {
 
   inbound_rules_ipv4 = {
     ssh = {
-      cidr_ipv4   = "86.99.90.165/32"
+      cidr_ipv4   = "86.99.90.165/32" // Autorise les connexions SSH UNIQUEMENT votre IP (Très restreint, seulement cette @ip peut se connecter)
       protocol    = "tcp"
       from_port   = 22
       to_port     = 22
       description = "SSH from my IP address"
     }
     http = {
-      cidr_ipv4   = "0.0.0.0/0"
+      cidr_ipv4   = "0.0.0.0/0" // Autorise le trafic HTTP (Permet à n'importe qui "adresses IPv4" dans le monde d'accéder à votre site web)
       protocol    = "tcp"
       from_port   = 80
       to_port     = 80
@@ -24,9 +24,9 @@ module "security_group" {
 
   outbound_rules_ipv4 = {
     all = {
-      cidr_ipv4   = "0.0.0.0/0"
-      protocol    = "-1" // means all
-      from_port   = -1
+      cidr_ipv4   = "0.0.0.0/0" // Votre instance a accès a tout internet 
+      protocol    = "-1"       //  signifie "tous les protocoles" (TCP, UDP, ICMP, etc.)
+      from_port   = -1        // signifie "tous les ports"
       to_port     = -1
       description = "HTTP from 0.0.0.0/0 (outbound)"
 
