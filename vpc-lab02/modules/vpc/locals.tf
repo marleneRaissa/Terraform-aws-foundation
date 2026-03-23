@@ -1,3 +1,5 @@
+# les var locals sont uniquement local à Terraform. Cela ne modifie en rien les ressources AWS existantes
+
 locals {
   nb_of_public_subnets  = 2
   nb_of_private_subnets = 2
