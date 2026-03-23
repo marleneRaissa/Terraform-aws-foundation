@@ -1,7 +1,7 @@
 locals {
   nb_of_public_subnets  = 2
   nb_of_private_subnets = 2
-  az_list               = var.availability_zones
+  az_list               = var.availability_zone
   derived_subnet_cidrs = [
     for i in range(local.nb_of_public_subnets + local.nb_of_private_subnets) :
     cidrsubnet(var.vpc_cidr, 8, i)
