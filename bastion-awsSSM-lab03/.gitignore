@@ -39,3 +39,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+# It should stay local
+.terraform.lock.hcl
