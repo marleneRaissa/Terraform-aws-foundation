@@ -2,12 +2,16 @@
 # the internet, whose only job is to let you safely access private machines.
 
 
-########### SSH from my laptop → Bastion EC2 (publique) → Private EC2  ###########
+
+######################      SSH from my laptop → Bastion EC2 (publique) → Private EC2     ######################
 
 # -------------------------------------------- Bastion --------------------------------------------- #
 # Crée un Security Group spécifique pour le Bastion Host. Ce SG sera attaché à l'instance ec2 Bastion
 # Il protège l’instance Bastion EC2.
 # Dans AWS, un Security Group ne fait pas tout seul entrer du trafic. Il faut ensuite lui ajouter des règles.
+# Depuis ton Mac, connecte-toi au bastion comme ça : ssh -A -i ~/.ssh/cleprivee user@IP_PUBLIQUE_BASTION
+# Le -A active agent forwarding, permet au bastion d’utiliser ma clé privé qui reste sur ton Mac pour se connecter ec2privée.
+# puis ssh user@ipprivee
 # ------------------------------------------------------------------------------------------------- #
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion-sg"
@@ -70,13 +74,19 @@ resource "aws_instance" "bastion_ec2" {
   subnet_id                   = data.terraform_remote_state.vpc.outputs.public_subnet_ids[0]   # place bastion dans le subnet_public0
   associate_public_ip_address = true                                                           # bastion_ec2 reçoit une IP publique, indispensable pour s’y connecter depuis Internet
   vpc_security_group_ids      = [aws_security_group.bastion_sg.id]                             # Attache le SG bastion_ec2
-  key_name                    = aws_key_pair.bastion_key.key_name    
+  key_name                    = aws_key_pair.bastion_key.key_name                              # j'attache la clé que j'ai crée à mon instance bastion
 
   tags = {
     Name    = "bastion-ec2-public"
     Env     = "dev"
     Project = "lab03-secure-workloads"
   }
+}
+
+# lire ta clé publique locale, l’enregistre dans AWS comme Key Pair EC2
+resource "aws_key_pair" "bastion_key" {
+  key_name   = "marlene-key"
+  public_key = file("~/.ssh/id_ed25519.pub")
 }
 
 # ------------------------------------------------------------- Bastion ---------------------------------------------------------- #
@@ -89,7 +99,7 @@ resource "aws_instance" "app_ec2" {
   subnet_id                   = data.terraform_remote_state.vpc.outputs.private_subnet_ids[0]   # recupération du subnet privé via le fichier de sauvegarde dans s3
   associate_public_ip_address = false                                                           # Pas d'IP publique
   vpc_security_group_ids      = [aws_security_group.private_ec2_sg.id]                          # Attache l'instance au SG du reseau privé
-  key_name = aws_key_pair.bastion_key.key_name
+  key_name = aws_key_pair.bastion_key.key_name                                                  # j'attache la clé que j'ai crée à mon instance privée
 
   tags = {
     Name    = "app-ec2-private"
@@ -99,7 +109,7 @@ resource "aws_instance" "app_ec2" {
 }
 
 
-# ------------------------------------------------------------- Ressource commune Bastion et AWS SSM ---------------------------------------------------------- #
+# ------------------------------------------------------------- Ressources communes à Bastion et AWS SSM ---------------------------------------------------------- #
 # App EC2  - Private subnet : Crée une instance EC2 dans le subnet privé
 # Il protège la machine privée.
 # ------------------------------------------------------------------------------------------------------------------------------- #
@@ -113,10 +123,6 @@ resource "aws_security_group" "private_ec2_sg" {
   }
 }
 
-resource "aws_key_pair" "bastion_key" {
-  key_name   = "marlene-key"
-  public_key = file("~/.ssh/id_ed25519.pub")
-}
 
 /*
 # ------------------------------ Admin -> Accès via SSM Session Manager -> Private EC2 / Instances ASG  ------------------------------------ #
