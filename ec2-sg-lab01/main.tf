@@ -1,7 +1,7 @@
 module "security_group" {
   source = "./modules/security_group"
 
-  security_group_name        = "${var.environment}-sg-day2"
+  security_group_name        = "${var.environment}-sg-lab01"
   security_group_description = "Security group created with Terraform"
   vpc_id                     = data.aws_vpc.fetch_vpc.id
 
@@ -34,7 +34,7 @@ module "security_group" {
   }
 
   tags = {
-    Name = "Day02"
+    Name = "lab01"
     Env  = var.environment
     Team = "SD"
   }
@@ -46,7 +46,7 @@ module "ec2" {
   source = "./modules/ec2"
 
   // INPUT
-  instance_name          = "${var.environment}-ec2-day2"
+  instance_name          = "${var.environment}-ec2-lab01"
   instance_type          = var.instance_type
   subnet_id              = local.first_subnet_id
   vpc_security_group_ids = [module.security_group.vpc_security_group_id]
