@@ -41,7 +41,9 @@ module "security_group" {
 
 }
 
-
+# Lorsque vous lancez une instance Amazon EC2, vous pouvez transmettre à l’instance des données utilisateur utilisées
+# pour effectuer des tâches de configuration automatisées ou pour exécuter des scripts après le démarrage de l’instance.
+# Sur les instances Linux, vous pouvez transmettre deux types de données utilisateur à Amazon EC2 : les scripts shell et les directives cloud-init
 module "ec2" {
   source = "./modules/ec2"
 
